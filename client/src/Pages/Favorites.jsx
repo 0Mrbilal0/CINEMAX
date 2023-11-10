@@ -1,0 +1,60 @@
+import { useEffect, useState } from "react"
+import Movies from "../components/Movies";
+import { Link } from "react-router-dom";
+
+function Favorite() {
+    const [favorites, setFavorites] = useState([])
+    const [movies, setMovies] = useState([])
+    const API = "https://www.omdbapi.com/?apikey=f4c562c9";
+
+    const fetchFavorites = async() => {
+        try {
+            const response = await fetch('http://localhost:3001/api/fav')
+            const jsonResponse = await response.json()
+            setFavorites(jsonResponse.favorites)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    let moviesResponse = []
+    const fetchMovies = async () => {
+        try {
+            for(const element of favorites ){
+                const response = await fetch(`${API}&i=${element.id}`)
+                const jsonResponse = await response.json()
+                moviesResponse.push(jsonResponse)
+            }
+            setMovies(moviesResponse)
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    useEffect(() => {
+        fetchFavorites()
+            .catch(err => {
+                console.error('Une erreur c\'est produite lors de la recuperation des favories',err)
+            })
+    }, [])
+    
+    useEffect(() => {        
+        fetchMovies()
+            .catch(err => {
+                console.error('Une erreur c\'est produite lors de la recuperation des films',err)
+            })
+    }, [favorites])
+
+    return (
+        <>
+            <div style={{paddingTop: '3rem' ,display:'flex',alignContent:'center',flexDirection:'column',flexWrap:'wrap'}}>
+                <Link to={'/'}><button className="btn" >Home</button></Link>
+            </div>
+            <h1 style={{textAlign:'center',paddingBottom:'1rem'}}>Favories</h1>
+            <Movies movies={movies} />
+        </>
+    )
+    
+}
+
+export default Favorite

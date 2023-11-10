@@ -1,17 +1,16 @@
-import { useState } from "react";
-import "./styles.css";
+import { useEffect, useState } from "react";
 
-import cinemaxLogo from "./assets/cinemax-lg.png";
+import cinemaxLogo from "../assets/cinemax-lg.png";
 
-import Search from "./components/Search";
-import Movies from "./components/Movies";
+import Search from "../components/Search";
+import Movies from "../components/Movies";
 
 export default function App() {
-  const API = "https://www.omdbapi.com/?apikey=934f5780";
+  const API = "https://www.omdbapi.com/?apikey=f4c562c9";
 
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
-
+  
   const searchMovies = async (searchValue) => {
     try {
       const response = await fetch(`${API}&s=${searchValue}`);
@@ -19,9 +18,8 @@ export default function App() {
 
       if (data.Search) {
         setMovies(data.Search);
+        console.log(data.Search)
       }
-
-      console.log(movies);
     } catch (error) {
       console.error(error);
     }

@@ -1,12 +1,21 @@
 import React from "react";
+const config = require("cinemax/config.json")
 
 export default function Movies({ movies }) {
   const imdb = "https://imdb.com/title/";
-
+  const PORT = config.SERVERPORT
+  const url = `http://localhost:${PORT}/api/save`
   return (
     <div className="movies">
+
       {movies.map((movie) => (
         <div className="movie" key={movie.imdbID}>
+          <form className="favorite" method="POST" action={url}>
+            <input type="hidden" name="imdbID" value={movie.imdbID} />
+            <button type="submit" className="btn-favorite">
+              <img src="https://api.iconify.design/mdi:star-circle.svg" alt="star" width="50" />
+            </button>
+          </form>
           <div className="movie-info">
             <img
               src={
@@ -18,12 +27,8 @@ export default function Movies({ movies }) {
             />
             <h3>{movie.Title}</h3>
             <p>
-              Voir les détailes{" "}
-              <a
-                href={`${imdb}${movie.imdbID}`}
-                rel="noreferrer"
-                target="_blank"
-              >
+              Voir les détails
+              <a href={imdb + movie.imdbID} target="_blank">
                 IMDB
               </a>
             </p>

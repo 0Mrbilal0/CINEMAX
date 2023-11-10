@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"
 
 export default function Search({ search, setSearch, searchMovies }) {
   const handleSubmit = (e) => {
@@ -14,7 +15,8 @@ export default function Search({ search, setSearch, searchMovies }) {
           placeholder="Quel film recherchez-vous ?"
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button type="submit">Rechercher</button>
+        <button type="submit" className="btn">Rechercher</button>
+        <Link to={'/fav'}><button className="btn" style={{marginLeft:'1rem'}}>Favories</button></Link>
       </form>
     </div>
   );
