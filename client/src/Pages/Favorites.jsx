@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react"
 import Movies from "../components/Movies";
-import { Link } from "react-router-dom";
-import cinemaxLogo from "../assets/cinemax-lg.png";
 import Navbar from "../components/Navbar";
 
 function Favorite() {

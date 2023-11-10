@@ -11,6 +11,7 @@ const app = express(); // Création de l'application
 const PORT = 3001; // Définition du port d'écoute
 const Save = require("./functions/Save"); // Importation de la fonction Save
 const cors = require('cors')
+const path = require('path')
 // const Delete = require("./functions/Delete"); // Importation de la fonction Delete
 
 // ------------------------- ROUTES ------------------------- //
@@ -28,10 +29,9 @@ const cors = require('cors')
  * par le formulaire sous la forme d'un objet.
  */
 app.use(express.urlencoded({ extended: true }),cors());
+app.use(express.json()) 
+app.use(express.static('./client/build'))
 
-app.get("/", (req,res) => {
-  res.redirect('/')
-})
 
 // Route permettant de traiter l'enregistrement d'un film dans la liste des favoris
 app.post("/api/save", (req, res) => {
@@ -44,9 +44,12 @@ app.post("/api/save", (req, res) => {
 });
 
 app.get("/api/fav", (_,res) => {
-    res.sendFile(__dirname + "/data.json")
+  res.sendFile(__dirname + "/data.json")
 })
 
+app.get("/*", (req,res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"))
+})
 // Route permettant de traiter la suppression d'un film dans la liste des favoris
 // app.post("/api/delete", (req, res) => {
 //   const imdbID = req.body // On récupère les données envoyées par le formulaire

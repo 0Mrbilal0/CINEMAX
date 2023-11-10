@@ -4,7 +4,6 @@ import cinemaxLogo from "../assets/cinemax-lg.png";
 
 import Search from "../components/Search";
 import Movies from "../components/Movies";
-import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 export default function App() {
