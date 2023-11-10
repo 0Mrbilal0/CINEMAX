@@ -1,9 +1,8 @@
 import React from "react";
-const config = require("cinemax/config.json")
 
 export default function Movies({ movies }) {
   const imdb = "https://imdb.com/title/";
-  const PORT = config.SERVERPORT
+  const PORT = 3001
   const url = `http://localhost:${PORT}/api/save`
   return (
     <div className="movies">
