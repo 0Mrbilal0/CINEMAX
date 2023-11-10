@@ -2,8 +2,7 @@ import React from "react";
 
 export default function Movies({ movies }) {
   const imdb = "https://imdb.com/title/";
-  const PORT = 3001
-  const url = `http://localhost:${PORT}/api/save`
+  const url = `/api/save`
   return (
     <div className="movies">
 

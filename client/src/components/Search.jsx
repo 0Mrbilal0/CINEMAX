@@ -16,7 +16,6 @@ export default function Search({ search, setSearch, searchMovies }) {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button type="submit" className="btn">Rechercher</button>
-        <Link to={'/fav'}><button className="btn" style={{marginLeft:'1rem'}}>Favories</button></Link>
       </form>
     </div>
   );
