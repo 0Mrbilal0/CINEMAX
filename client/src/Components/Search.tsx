@@ -1,8 +1,6 @@
-import React from "react";
-
-export default function Search({ search, setSearch, searchMovies }) {
-  const handleSubmit = (e) => {
-    e.preventDefault();
+export default function Search({ search, setSearch, searchMovies }: any) {
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
     searchMovies(search);
   };
 

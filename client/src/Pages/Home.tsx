@@ -2,17 +2,17 @@ import { useState } from "react";
 
 import cinemaxLogo from "../assets/cinemax-lg.png";
 
-import Search from "../components/Search";
-import Movies from "../components/Movies";
-import Navbar from "../components/Navbar";
+import Search from "../Components/Search";
+import Movies from "../Components/Movies";
+import Navbar from "../Components/Navbar";
 
 export default function App() {
-  const API = "https://www.omdbapi.com/?apikey=f4c562c9";
+  const API = import.meta.env.VITE_OMDB
 
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
 
-  const searchMovies = async (searchValue) => {
+  const searchMovies = async (searchValue: string) => {
     try {
       const response = await fetch(`${API}&s=${searchValue}`);
       const data = await response.json();

@@ -1,24 +1,26 @@
-import { useEffect, useState } from "react"
-import Movies from "../components/Movies";
-import Navbar from "../components/Navbar";
+import { useCallback, useEffect, useState } from "react"
+import Movies from "../Components/Movies";
+import Navbar from "../Components/Navbar";
+import { Favorites, OMDBAPI } from "../@types/movies";
+import Requests from "../config/axios";
 
 function Favorite() {
-    const [favorites, setFavorites] = useState([])
-    const [movies, setMovies] = useState([])
-    const API = "https://www.omdbapi.com/?apikey=f4c562c9";
+    const [favorites, setFavorites] = useState<Favorites[]>([])
+    const [movies, setMovies] = useState<OMDBAPI[]>([])
+    const API = import.meta.env.VITE_OMDB;
+
 
     const fetchFavorites = async () => {
         try {
-            const response = await fetch('/api/fav')
-            const jsonResponse = await response.json()
-            setFavorites(jsonResponse.favorites)
+            const result: Favorites[] = await Requests.get<Favorites[]>("/favorites")
+            setFavorites(result)
         } catch (err) {
             console.error(err)
         }
     }
 
     let moviesResponse = []
-    const fetchMovies = async () => {
+    const fetchMovies = useCallback(async () => { 
         try {
             for (const element of favorites) {
                 const response = await fetch(`${API}&i=${element.id}`)
@@ -27,9 +29,9 @@ function Favorite() {
             }
             setMovies(moviesResponse)
         } catch (err) {
-            console.error(err);
+            console.error(err)
         }
-    }
+    }, [])
 
     useEffect(() => {
         fetchFavorites()

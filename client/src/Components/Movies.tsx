@@ -1,19 +1,29 @@
-import React from "react";
+import { useCallback } from "react";
+import { Favorites, OMDBAPI } from "../@types/movies";
+import Requests from "../config/axios";
 
-export default function Movies({ movies }) {
-  const imdb = "https://imdb.com/title/";
-  const url = `/api/save`
+export default function Movies({ movies }: { movies: OMDBAPI[] }) {
+  const imdb = "https://imdb.com/title/"
+  const Save = useCallback(async (imdbId: string) => {
+    const data: Favorites = {
+      id: imdbId,
+      movie: imdbId
+    }
+    console.log(data);
+    const result: Favorites[] = await Requests.post<Favorites[], Favorites>("/favorites", data)
+    console.info(result);
+  }, [])
   return (
     <div className="movies">
 
       {movies.map((movie) => (
         <div className="movie" key={movie.imdbID}>
-          <form className="favorite" method="POST" action={url}>
-            <input type="hidden" name="imdbID" value={movie.imdbID} />
-            <button type="submit" className="btn-favorite">
+          <section className="favorite">
+            <input type="hidden" name="imdbID" value={JSON.stringify(movie)} />
+            <button type="button" className="btn-favorite" onClick={() => Save(movie.imdbID)}>
               <img src="https://api.iconify.design/mdi:star-circle.svg" alt="star" width="50" />
             </button>
-          </form>
+          </section>
           <div className="movie-info">
             <img
               src={
