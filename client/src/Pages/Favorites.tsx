@@ -7,7 +7,7 @@ import Requests from "../config/axios";
 function Favorite() {
     const [favorites, setFavorites] = useState<Favorites[]>([])
     const [movies, setMovies] = useState<OMDBAPI[]>([])
-    const API = 'http://www.omdbapi.com/?apikey=f4c562c9'
+    const API = 'https://www.omdbapi.com/?apikey=f4c562c9'
 
     const fetchFavorites = useCallback(async () => {
         try {
