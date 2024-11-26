@@ -7,7 +7,7 @@ import Movies from "../Components/Movies";
 import Navbar from "../Components/Navbar";
 
 export default function App() {
-  const API = 'http://www.omdbapi.com/?apikey=f4c562c9'
+  const API = 'https://www.omdbapi.com/?apikey=f4c562c9'
 
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
