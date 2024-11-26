@@ -13,6 +13,7 @@ export default function Movies({ movies }: { movies: OMDBAPI[] }) {
     const result: Favorites[] = await Requests.post<Favorites[], Favorites>("/favorites", data)
     console.info(result);
   }, [])
+  
   return (
     <div className="movies">
 

@@ -6,19 +6,13 @@ import { findAllFavorites, addFavorite } from "../Model/FavoriesModel";
 const FavoriesController = (async (req: Request, res: Response) => {
    if (req.method === 'GET') {
       console.info("GET")
-      try {
-         res.json(findAllFavorites())
-      } catch {
-         console.error("il y'a une erreur");
-      }
+      res.status(200).json(findAllFavorites())
 
    } else if (req.method === 'POST') {
       console.info("POST")
       const request: Favorites = req.body
-      res.json(addFavorite({ id: request.id, movie: request.movie }))
-
+      res.status(200).json(addFavorite({ id: request.id, movie: request.movie }))
    }
 })
-
 
 export default FavoriesController

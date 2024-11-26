@@ -7,25 +7,24 @@ import Requests from "../config/axios";
 function Favorite() {
     const [favorites, setFavorites] = useState<Favorites[]>([])
     const [movies, setMovies] = useState<OMDBAPI[]>([])
-    const API = import.meta.env.VITE_OMDB;
+    const API = 'http://www.omdbapi.com/?apikey=f4c562c9'
 
-
-    const fetchFavorites = async () => {
+    const fetchFavorites = useCallback(async () => {
         try {
             const result: Favorites[] = await Requests.get<Favorites[]>("/favorites")
+            console.log(result);
             setFavorites(result)
         } catch (err) {
             console.error(err)
         }
-    }
+    }, [])
 
-    let moviesResponse = []
-    const fetchMovies = useCallback(async () => { 
+    let moviesResponse: OMDBAPI[] = []
+    const fetchMovies = useCallback(async () => {
         try {
             for (const element of favorites) {
-                const response = await fetch(`${API}&i=${element.id}`)
-                const jsonResponse = await response.json()
-                moviesResponse.push(jsonResponse)
+                console.log(element);
+                moviesResponse = await Requests.get<OMDBAPI[]>(`${API}&i=${element.id}`)
             }
             setMovies(moviesResponse)
         } catch (err) {
@@ -34,17 +33,17 @@ function Favorite() {
     }, [])
 
     useEffect(() => {
-        fetchFavorites()
-            .catch(err => {
-                console.error('Une erreur c\'est produite lors de la recuperation des favories', err)
-            })
+        fetchFavorites().catch(err => {
+            console.error('Une erreur c\'est produite lors de la recuperation des favories', err)
+        })
+        console.log("favorite Response: " + favorites);
     }, [])
 
     useEffect(() => {
-        fetchMovies()
-            .catch(err => {
-                console.error('Une erreur c\'est produite lors de la recuperation des films', err)
-            })
+        fetchMovies().catch(err => {
+            console.error('Une erreur c\'est produite lors de la recuperation des films', err)
+        })
+        console.log("movies Response: " + movies);
     }, [favorites])
 
     return (
@@ -56,7 +55,6 @@ function Favorite() {
             </div>
         </>
     )
-
 }
 
 export default Favorite

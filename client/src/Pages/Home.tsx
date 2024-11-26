@@ -7,7 +7,7 @@ import Movies from "../Components/Movies";
 import Navbar from "../Components/Navbar";
 
 export default function App() {
-  const API = import.meta.env.VITE_OMDB
+  const API = 'http://www.omdbapi.com/?apikey=f4c562c9'
 
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
