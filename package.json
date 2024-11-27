@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "npx tsc index.ts && node index.js",
+    "start": "npx tsc *.ts && node index.js",
     "dev": "nodemon index.ts"
   },
   "keywords": [],
