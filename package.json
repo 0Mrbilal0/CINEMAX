@@ -1,0 +1,11 @@
+{
+  "name": "cinemax",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd api && npm install && cd ."
+  },
+  "author": "Mrbilal",
+  "license": "ISC",
+  "description": ""
+}
